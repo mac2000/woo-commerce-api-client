@@ -1,0 +1,21 @@
+{
+  "name": "mac2000/woo-commerce-api-client",
+  "description": "API client for Wordpress WooCommerce plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alexandr Marchenko",
+      "email": "marchenko.alexandr@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "guzzlehttp/guzzle": "5.2.*",
+    "guzzlehttp/oauth-subscriber": "0.2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mac2000\\WooCommerceApiClient\\": "src"
+    }
+  }
+}

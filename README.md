@@ -24,7 +24,7 @@ Usage Examples
 Instantiation:
 
     use Mac2000\WooCommerceApiClient\Client as Woo;
-    $client = new Woo('ck_********************************', 'cs_********************************', 'http://acme.com/');
+    $client = new Woo('consumer_key', 'consumer_secret', 'http://acme.com/');
 
 Creating product:
 

@@ -26,7 +26,7 @@ Instantiation:
     use Mac2000\WooCommerceApiClient\Client as Woo;
     $client = new Woo('consumer_key', 'consumer_secret', 'http://acme.com/');
 
-Creating simple product:
+**Creating simple product**
 
     print_r($client->post('products', [
         'json' => [
@@ -52,8 +52,44 @@ Creating simple product:
 
 Notice that if you want product to use predefined attributes you should provide attribute slug.
 
+**Create variable product**
 
-Retrieve products:
+    print_r($client->post('products', [
+        'json' => [
+            'product' => [
+                'title' => 'Variable T-Shirt',
+                'type' => 'variable',
+                'regular_price' => 9.99,
+                'description' => 'T-Shirt description goes here',
+                'short_description' => 'short description',
+                'categories' => ['Wear', 'T-Shirts'],
+                'images' => [
+                    ['src' => 'http://placehold.it/800x600', 'position' => 0]
+                ],
+                'attributes' => [
+                    ['name' => 'Brand', 'slug' => 'brand', 'options' => ['Nike']],
+                    ['name' => 'Size', 'slug' => 'size', 'options' => ['S','M','L'], 'variation' => true], //Notice: All options that will be used in variations should be here
+                    ['name' => 'Color', 'options' => ['White', 'Black']]
+                ],
+                'variations' => [
+                    [
+                        'regular_price' => 8.99,
+                        'attributes' => [['name' => 'Size', 'slug' => 'size', 'option' => 'S']]
+                    ],
+                    [
+                        'regular_price' => 9.99,
+                        'attributes' => [['name' => 'Size', 'slug' => 'size', 'option' => 'M']]
+                    ],
+                    [
+                        'regular_price' => 10.99,
+                        'attributes' => [['name' => 'Size', 'slug' => 'size', 'option' => 'L']]
+                    ]
+                ]
+            ]
+        ]
+    ])->json());
+
+**Retrieve products**
 
     print_r($client->get('products')->json());
 

@@ -8,7 +8,6 @@
       "email": "marchenko.alexandr@gmail.com"
     }
   ],
-  "minimum-stability": "stable",
   "require": {
     "guzzlehttp/guzzle": "5.2.*",
     "guzzlehttp/oauth-subscriber": "0.2.*"

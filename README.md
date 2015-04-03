@@ -46,8 +46,8 @@ print_r($client->post('products', [
                 ['src' => 'http://placehold.it/800x600', 'position' => 0]
             ],
             'attributes' => [
-                //Important: for predefined attributes slug is required
-                ['name' => 'Brand', 'slug' => 'brand', 'options' => ['Nike']],
+                //Important: for predefined attributes slug is required, and options should contain slugs rather than names
+                ['name' => 'Brand', 'slug' => 'brand', 'options' => ['nike']],
                 ['name' => 'Size', 'slug' => 'size', 'options' => ['M']],
                 ['name' => 'Color', 'options' => ['White']]
             ]

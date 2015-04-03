@@ -12,11 +12,13 @@ Installation
 
 This client can be installed using Composer. Add the following to your composer.json:
 
-    {
-        "require": {
-            "mac2000/woo-commerce-api-client": "1.0.*"
-        }
+```json
+{
+    "require": {
+        "mac2000/woo-commerce-api-client": "1.0.*"
     }
+}
+```
 
 Usage Examples
 --------------

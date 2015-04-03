@@ -103,3 +103,36 @@ print_r($client->post('products', [
 print_r($client->get('products')->json());
 ```
 
+**Retrie all product ids**
+
+```php
+$page = 0;
+$product_ids = [];
+
+do {
+    $page++;
+
+    $response = $client->get('products', ['query' => [
+        'fields' => 'id',
+        'page' => $page,
+        'filter' => [
+            'limit' => 5
+        ]
+    ]]);
+
+    preg_match_all('/<(?P<href>[^>]+)>; rel="(?P<rel>[^"]+)"/i', $response->getHeader('Link'), $links, PREG_SET_ORDER);
+    $links = array_reduce($links, function($carry, $item) {
+        $carry[$item['rel']] = $item['href'];
+        return $carry;
+    }, []);
+    
+    $json = $response->json();
+
+    $product_ids = array_merge($product_ids, array_map(function($product) {
+        return $product['id'];
+    }, $json['products']));
+
+} while(isset($links['next']));
+
+print_r($product_ids);
+```

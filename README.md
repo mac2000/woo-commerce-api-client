@@ -193,3 +193,19 @@ $product = [
 $response = $client->post('products', ['json' => ['product' => $product]]);
 print_r($response->json());
 ```
+
+This code will:
+
+**Create categories hierarchy**
+
+![categories](https://cloud.githubusercontent.com/assets/88868/6992160/4667cde8-dac6-11e4-9659-755ebca2db4f.png)
+
+**Create attribute options**
+
+![attributes](https://cloud.githubusercontent.com/assets/88868/6992162/5a0a772e-dac6-11e4-9550-667e1ff5d3d9.png)
+
+*Notice: Attributes itself can not be created from outside, so you should create Brand and Color attributes before importing products*
+
+**Create product with predefined attributes**
+
+![product_attributes](https://cloud.githubusercontent.com/assets/88868/6992163/7a64d73a-dac6-11e4-8036-cb2f1bf12866.png)

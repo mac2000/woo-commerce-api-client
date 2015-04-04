@@ -11,7 +11,8 @@
   "minimum-stability": "stable",
   "require": {
     "guzzlehttp/guzzle": "5.2.*",
-    "guzzlehttp/oauth-subscriber": "0.2.*"
+    "guzzlehttp/oauth-subscriber": "0.2.*",
+    "hieu-le/wordpress-xmlrpc-client": "2.4.*"
   },
   "autoload": {
     "psr-4": {

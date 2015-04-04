@@ -136,3 +136,60 @@ do {
 
 print_r($product_ids);
 ```
+
+Missing API
+===========
+
+Unfortunately at moment not all things are implemented in WooCommerce API but there is still a way to manage your store.
+
+Project contains class `MissingApiHelper` that implements some missing things via XMLRPC.
+
+For example as you know attributes for product can be two types - taxonomy that can be used in layered navigation and custom post meta.
+
+If you want create product with taxonomy attribute you should create it first.
+
+Here is full example of creating such product:
+
+```php
+<?php
+use Mac2000\WooCommerceApiClient\Client;
+use Mac2000\WooCommerceApiClient\MissingApiHelper;
+
+require_once 'vendor/autoload.php';
+
+$client = new Client('ck_******', 'cs_******', 'http://acme.com/');
+$helper = new MissingApiHelper('http://acme.com/xmlrpc.php', 'admin', '******');
+
+// This is optional step, WooCommerce api will create categories
+// but it will create them flat, so we are creating them manually
+// to ensure that they belong to each other
+$helper->ensureTwoLevelProductCategory('Wear', 'T-Shirts');
+
+// Notice: At this moment there is no way to create attributes from outside
+// so you should create them by hand before adding options
+$brand = $helper->ensureAttributeOption('Brand', 'Nike');
+$color = $helper->ensureAttributeOption('Color', 'White');
+
+$brand_slug = str_replace('pa_', '', $brand['taxonomy']);
+$color_slug = str_replace('pa_', '', $color['taxonomy']);
+
+$product = [
+    'title' => 'Simple T-Shirt',
+    'type' => 'simple',
+    'regular_price' => 9.99,
+    'description' => 'T-Shirt description goes here',
+    'short_description' => 'short description',
+    'categories' => ['Wear', 'T-Shirts'],
+    'images' => [
+        ['src' => 'http://placehold.it/800x600', 'position' => 0]
+    ],
+    'attributes' => [
+        ['name' => 'Brand', 'slug' => $brand_slug, 'options' => [$brand['slug']]], // Select attribute
+        ['name' => 'Color', 'slug' => $color_slug, 'options' => [$color['slug']]], // Text attribute
+        ['name' => 'Jackets', 'options' => ['One']] // Custom attribute
+    ]
+];
+
+$response = $client->post('products', ['json' => ['product' => $product]]);
+print_r($response->json());
+```

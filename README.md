@@ -137,6 +137,28 @@ do {
 print_r($product_ids);
 ```
 
+Security
+--------
+
+Important notice. If you on shared hosting there is possibility that requests without user agent is restricted (In my case I got 404 Not found errors). To avoid this add user agent to your client like this:
+
+```php
+<?php
+use Mac2000\WooCommerceApiClient\Client;
+
+require_once 'vendor/autoload.php';
+
+$client = new Client('ck_******', 'cs_******', 'http://acme.com/', [
+    'defaults' => [
+        'headers' => [
+            'User-Agent' => 'WooCommerce API Client'
+        ]
+    ]
+]);
+
+print_r($client->get('products')->json());
+```
+
 Missing API
 ===========
 

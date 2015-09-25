@@ -6,7 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 class Client extends GuzzleClient {
     public function __construct($customer_key, $customer_secret, $store_url, array $options = [])
     {
-        $options['base_url'] = ['http://' . parse_url($store_url, PHP_URL_HOST) . '/wc-api/{version}/', ['version' => 'v2']];
+        $options['base_url'] = [$store_url . '/wc-api/{version}/', ['version' => 'v2']];
 
         if(!isset($options['defaults'])) $options['defaults'] = [];
         $options['defaults']['auth'] = 'oauth';
